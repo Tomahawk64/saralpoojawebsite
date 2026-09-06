@@ -40,10 +40,86 @@ document.addEventListener('DOMContentLoaded', function () {
     var show = function (el) { if (el) el.classList.add('show'); };
     var hide = function (el) { if (el) el.classList.remove('show'); };
 
+    // --- Client-side validation -------------------------------------------
+    var fieldEl = function (name) { return form.querySelector('[name="' + name + '"]'); };
+    var wrapOf = function (el) { return el ? el.closest('.form-field') : null; };
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    var clearFieldErrors = function () {
+      form.querySelectorAll('.form-field.field-invalid').forEach(function (w) {
+        w.classList.remove('field-invalid');
+      });
+      form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) {
+        el.removeAttribute('aria-invalid');
+      });
+    };
+
+    var markInvalid = function (el) {
+      if (!el) return;
+      el.setAttribute('aria-invalid', 'true');
+      var w = wrapOf(el);
+      if (w) w.classList.add('field-invalid');
+    };
+
+    var validate = function () {
+      clearFieldErrors();
+      var problems = [];
+      var name = fieldEl('name');
+      var email = fieldEl('email');
+      var phone = fieldEl('phone');
+      var message = fieldEl('message');
+
+      if (name && !name.value.trim()) { markInvalid(name); problems.push('Please enter your full name.'); }
+
+      if (email) {
+        var ev = email.value.trim();
+        if (!ev) { markInvalid(email); problems.push('Please enter your email address.'); }
+        else if (!EMAIL_RE.test(ev)) { markInvalid(email); problems.push('Please enter a valid email address.'); }
+      }
+
+      // Phone is optional, but if provided it must look like a phone number.
+      if (phone && phone.value.trim()) {
+        var digits = phone.value.replace(/[^0-9]/g, '');
+        if (!/^[0-9+\-()\s]+$/.test(phone.value) || digits.length < 7 || digits.length > 15) {
+          markInvalid(phone);
+          problems.push('Please enter a valid phone number, or leave it blank.');
+        }
+      }
+
+      if (message) {
+        var mv = message.value.trim();
+        if (!mv) { markInvalid(message); problems.push('Please enter a message.'); }
+        else if (mv.length < 10) { markInvalid(message); problems.push('Your message is a little short — please add a few more details.'); }
+      }
+
+      return problems;
+    };
+
+    // Clear a field's error state as soon as the user edits it.
+    form.addEventListener('input', function (e) {
+      var w = wrapOf(e.target);
+      if (w && w.classList.contains('field-invalid')) {
+        w.classList.remove('field-invalid');
+        e.target.removeAttribute('aria-invalid');
+      }
+    });
+    // --------------------------------------------------------------------
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       hide(successBox);
       hide(errorBox);
+
+      var problems = validate();
+      if (problems.length) {
+        if (errorBox) {
+          errorBox.textContent = problems[0];
+          show(errorBox);
+        }
+        var firstBad = form.querySelector('.form-field.field-invalid [name], .form-field.field-invalid input, .form-field.field-invalid textarea');
+        if (firstBad && typeof firstBad.focus === 'function') firstBad.focus();
+        return;
+      }
 
       if (!isConfigured || !window.emailjs) {
         if (errorBox) {

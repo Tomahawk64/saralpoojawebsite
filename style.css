@@ -450,6 +450,12 @@ section{ padding: 88px 0; }
   font-family: var(--font-body); font-size: 0.96rem; color: var(--ink);
 }
 .form-field textarea{ min-height: 120px; resize: vertical; }
+.form-field.field-invalid input,
+.form-field.field-invalid textarea,
+.form-field.field-invalid select{
+  border-color: #C0492E;
+  box-shadow: 0 0 0 3px rgba(192,73,46,0.12);
+}
 .form-note{
   font-size:0.85rem; color: var(--brass); font-style: italic; margin-top: 6px;
 }
