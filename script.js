@@ -123,10 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!isConfigured || !window.emailjs) {
         if (errorBox) {
-          errorBox.textContent = 'Email sending isn\'t configured yet. Add your EmailJS credentials to .env, then run "node scripts/generate-config.js" (see README.md).';
+          errorBox.textContent = 'We couldn\'t send your message right now. Please email us directly at saralpooja.info@gmail.com or call +91 70420 64094.';
           show(errorBox);
         }
-        console.warn('[Saral Pooja] EmailJS is not configured — see .env and scripts/generate-config.js.');
         return;
       }
 
