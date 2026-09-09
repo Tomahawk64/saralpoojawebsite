@@ -164,7 +164,7 @@ section{ padding: 88px 0; }
 .nav-toggle.open::before{ transform: rotate(45deg); }
 .nav-toggle.open::after{ transform: rotate(-45deg) translateY(0); top:-2px; }
 
-@media (max-width: 860px){
+@media (max-width: 960px){
   .nav-toggle{ display:flex; }
   .nav-links{
     position:absolute; top:100%; left:0; right:0;
@@ -511,4 +511,255 @@ section{ padding: 88px 0; }
   display:inline-block; font-size:0.78rem; padding:4px 12px; border-radius:999px;
   background: var(--sandstone-2); color: var(--brass); border:1px solid var(--line-soft);
   margin-bottom: 14px;
+}
+
+/* =========================================================
+   SECTION EYEBROW — small gold-ruled label above headings
+   ========================================================= */
+.eyebrow{
+  display:flex; align-items:center; gap:10px;
+  font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--brass); margin-bottom: 14px;
+}
+.eyebrow::before{
+  content:""; width: 34px; height: 1px; background: var(--gold); flex-shrink:0;
+}
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head.center .eyebrow{ justify-content:center; }
+
+/* =========================================================
+   POOJA CATALOGUE — expandable detail cards (native <details>)
+   ========================================================= */
+.pooja-group{ margin-bottom: 56px; }
+.pooja-group:last-child{ margin-bottom: 0; }
+.pooja-group > h2{ margin-bottom: 6px; }
+.pooja-group > .group-note{ font-size: 0.95rem; color: var(--brass); margin-bottom: 26px; }
+
+.pooja-list{ display:flex; flex-direction:column; gap: 16px; max-width: 900px; }
+
+.pooja{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px 16px 16px 6px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.pooja[open]{ box-shadow: 0 24px 50px -24px rgba(43,27,30,0.45); }
+.pooja:hover{ border-left-color: var(--maroon); }
+
+.pooja > summary{
+  display:flex; align-items:center; gap: 18px;
+  padding: 16px 20px; cursor: pointer;
+  list-style: none;
+}
+.pooja > summary::-webkit-details-marker{ display:none; }
+.pooja > summary:focus-visible{ outline: 2px solid var(--gold); outline-offset: -3px; }
+
+.pooja-thumb{
+  width: 84px; height: 84px; flex-shrink:0;
+  border-radius: 10px; object-fit: cover; object-position: right center;
+  border: 1px solid var(--line);
+}
+.pooja-sum-text{ flex: 1; min-width: 0; }
+.pooja-name{
+  display:block; font-family: var(--font-display); color: var(--maroon-dark);
+  font-size: 1.15rem; line-height: 1.2; margin-bottom: 3px;
+}
+.pooja-teaser{
+  display:block; font-size: 0.92rem; color: var(--ink-soft);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pooja-chev{
+  flex-shrink:0; width: 30px; height: 30px; border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--sandstone-2); color: var(--maroon);
+  font-size: 0.8rem; transition: transform .25s ease, background .2s ease;
+}
+.pooja[open] .pooja-chev{ transform: rotate(180deg); background: var(--gold-light); }
+
+.pooja-detail{
+  display:grid; grid-template-columns: 300px 1fr; gap: 28px;
+  padding: 6px 20px 26px; align-items:start;
+  border-top: 1px solid var(--line);
+  margin-top: 2px;
+}
+.pooja-detail-media{ margin: 18px 0 0; }
+.pooja-detail-media img{
+  width: 100%; border-radius: 12px; border: 1px solid var(--line);
+  box-shadow: 0 14px 30px -18px rgba(43,27,30,0.4);
+}
+.pooja-detail-body{ padding-top: 18px; }
+.pooja-detail-body > p:first-child{ margin-top: 0; }
+.pooja-detail-body h4{
+  font-family: var(--font-body); font-weight: 600; font-size: 0.8rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass);
+  margin: 20px 0 10px;
+}
+.pooja-benefits{
+  list-style: none; margin: 0 0 6px; padding: 0;
+  display:grid; grid-template-columns: 1fr 1fr; gap: 8px 20px;
+}
+.pooja-benefits li{
+  position: relative; padding-left: 22px; font-size: 0.92rem; color: var(--ink-soft);
+}
+.pooja-benefits li::before{
+  content:"✦"; position:absolute; left: 0; top: 1px; color: var(--gold); font-size: 0.85rem;
+}
+.pooja-detail .btn-row{ margin-top: 22px; }
+.pooja-detail .avail{
+  display:block; margin-top: 14px; font-size: 0.82rem; color: var(--brass); font-style: italic;
+}
+
+@media (max-width: 680px){
+  .pooja-detail{ grid-template-columns: 1fr; gap: 4px; }
+  .pooja-benefits{ grid-template-columns: 1fr; }
+  .pooja > summary{ gap: 14px; padding: 14px 16px; }
+  .pooja-thumb{ width: 64px; height: 64px; }
+  .pooja-name{ font-size: 1.05rem; }
+}
+
+/* =========================================================
+   POOJA SHOWCASE — homepage visual gallery
+   ========================================================= */
+.showcase-grid{
+  display:grid; gap: 22px;
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px){ .showcase-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px){ .showcase-grid{ grid-template-columns: 1fr; } }
+
+.showcase-card{
+  display:block;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.showcase-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -22px rgba(43,27,30,0.45);
+}
+.showcase-frame{ overflow: hidden; background: var(--sandstone-2); }
+.showcase-frame img{
+  width: 100%; height: auto; display: block;
+  transition: transform .5s ease;
+}
+.showcase-card:hover .showcase-frame img{ transform: scale(1.03); }
+.showcase-label{ padding: 15px 18px 17px; }
+.showcase-label b{
+  display:block; font-family: var(--font-display); color: var(--maroon-dark);
+  font-size: 1.08rem; line-height: 1.2; margin-bottom: 3px;
+}
+.showcase-label span{ font-size: 0.86rem; color: var(--ink-soft); }
+
+/* =========================================================
+   SHOP / POOJA KITS
+   ========================================================= */
+.shop-grid{
+  display:grid; gap: 28px;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 760px){ .shop-grid{ grid-template-columns: 1fr; } }
+
+.kit-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius-arch);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display:flex; flex-direction: column;
+}
+.kit-card .kit-media{ background: var(--sandstone-2); }
+.kit-card .kit-media img{ width: 100%; height: auto; }
+.kit-body{ padding: 24px; display:flex; flex-direction:column; flex:1; }
+.kit-body h3{ margin-bottom: 8px; }
+.kit-body p{ font-size: 0.95rem; }
+.kit-body h4{
+  font-family: var(--font-body); font-weight: 600; font-size: 0.78rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass);
+  margin: 14px 0 8px;
+}
+.kit-includes{ list-style:none; margin:0 0 18px; padding:0; }
+.kit-includes li{
+  position:relative; padding-left: 20px; font-size: 0.9rem; color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+.kit-includes li::before{
+  content:"✓"; position:absolute; left:0; color: var(--gold); font-weight:700;
+}
+.kit-body .btn-row{ margin-top: auto; }
+
+/* =========================================================
+   SERVICE CARDS — expandable (native <details>) in a grid
+   ========================================================= */
+.svc-grid{
+  display:grid; gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+}
+@media (max-width: 720px){ .svc-grid{ grid-template-columns: 1fr; } }
+
+.svc{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--radius-arch);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: box-shadow .2s ease;
+}
+.svc[open]{ box-shadow: 0 22px 46px -24px rgba(43,27,30,0.45); }
+
+.svc > summary{
+  display:flex; align-items:flex-start; gap: 14px;
+  padding: 22px; cursor: pointer; list-style: none;
+}
+.svc > summary::-webkit-details-marker{ display:none; }
+.svc > summary:focus-visible{ outline: 2px solid var(--gold); outline-offset: -3px; }
+
+.svc-icon{
+  flex-shrink:0; font-size: 1.5rem;
+  width: 48px; height: 48px;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--sandstone-2);
+  border-radius: 14px 14px 4px 4px;
+}
+.svc-head{ flex: 1; min-width: 0; }
+.svc-name{
+  display:block; font-family: var(--font-display); color: var(--maroon-dark);
+  font-size: 1.15rem; line-height: 1.2; margin-bottom: 3px;
+}
+.svc-teaser{ display:block; font-size: 0.9rem; color: var(--ink-soft); }
+.svc-chev{
+  flex-shrink:0; width: 28px; height: 28px; border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  background: var(--sandstone-2); color: var(--maroon);
+  font-size: 0.75rem; margin-top: 4px;
+  transition: transform .25s ease, background .2s ease;
+}
+.svc[open] .svc-chev{ transform: rotate(180deg); background: var(--gold-light); }
+
+.svc-body{ padding: 0 22px 22px; }
+.svc-body > p:first-child{ margin-top: 0; }
+.svc-body p{ font-size: 0.95rem; }
+.svc-body .btn-row{ margin-top: 14px; }
+.svc-body .avail{
+  display:block; margin-top: 10px; font-size: 0.82rem; color: var(--brass); font-style: italic;
+}
+
+/* =========================================================
+   SCROLL REVEAL — subtle, opt-in via JS, motion-safe
+   ========================================================= */
+html.js-reveal .reveal{
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1);
+}
+html.js-reveal .reveal.in{ opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce){
+  html.js-reveal .reveal{ opacity: 1; transform: none; transition: none; }
 }

@@ -18,6 +18,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Expandable cards — accordion behaviour for the pooja catalogue and the
+  // service grids. Opening one closes the others in the same group. The
+  // pooja list also eases the opened item into view. Native <details>
+  // still works with JS disabled.
+  var accordionGroups = [];
+  document.querySelectorAll('.pooja-list').forEach(function (el) {
+    accordionGroups.push({ container: el, selector: 'details.pooja', scroll: true });
+  });
+  document.querySelectorAll('.svc-grid').forEach(function (el) {
+    accordionGroups.push({ container: el, selector: 'details.svc', scroll: false });
+  });
+  accordionGroups.forEach(function (group) {
+    var items = group.container.querySelectorAll(group.selector);
+    items.forEach(function (item) {
+      item.addEventListener('toggle', function () {
+        if (!item.open) return;
+        items.forEach(function (other) {
+          if (other !== item) other.open = false;
+        });
+        if (!group.scroll) return;
+        var top = item.getBoundingClientRect().top;
+        if (top < 80 || top > window.innerHeight - 120) {
+          window.scrollTo({ top: window.pageYOffset + top - 90, behavior: 'smooth' });
+        }
+      });
+    });
+  });
+
+  // Subtle scroll-reveal for .reveal sections. Opt-in via the js-reveal
+  // class so content stays visible if JS fails or motion is reduced.
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if (revealEls.length && 'IntersectionObserver' in window && !reduceMotion) {
+    document.documentElement.classList.add('js-reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
   // Contact form — sends through EmailJS.
   // Autoreply to the sender is handled entirely by the EmailJS template/dashboard
   // settings, so nothing extra is needed here for that part.
