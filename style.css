@@ -313,6 +313,9 @@ section{ padding: 88px 0; }
 @media (max-width: 860px){ .steps{ grid-template-columns: repeat(2,1fr);} }
 @media (max-width: 560px){ .steps{ grid-template-columns: 1fr;} }
 
+.steps.steps-2{ grid-template-columns: 1fr 1fr; margin-top: 8px; }
+@media (max-width: 620px){ .steps.steps-2{ grid-template-columns: 1fr; } }
+
 .step{ position:relative; padding-top: 8px; }
 .step::before{
   counter-increment: step;
@@ -612,12 +615,20 @@ section{ padding: 88px 0; }
   display:block; margin-top: 14px; font-size: 0.82rem; color: var(--brass); font-style: italic;
 }
 
-@media (max-width: 680px){
+@media (max-width: 820px){
   .pooja-detail{ grid-template-columns: 1fr; gap: 4px; }
+  .pooja-detail-media{ max-width: 420px; }
+}
+@media (max-width: 680px){
+  .pooja-detail{ padding: 4px 16px 22px; }
+  .pooja-detail-media{ margin-top: 14px; }
+  .pooja-detail-body{ padding-top: 14px; }
   .pooja-benefits{ grid-template-columns: 1fr; }
   .pooja > summary{ gap: 14px; padding: 14px 16px; }
   .pooja-thumb{ width: 64px; height: 64px; }
   .pooja-name{ font-size: 1.05rem; }
+  .svc > summary{ padding: 18px; }
+  .svc-body{ padding: 0 18px 18px; }
 }
 
 /* =========================================================
