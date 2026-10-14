@@ -1,4 +1,4 @@
-// Saral Pooja — shared site behaviour
+// Ritual Mitra — shared site behaviour
 
 document.addEventListener('DOMContentLoaded', function () {
   // Mobile nav toggle
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var errorBox = document.getElementById('contact-error');
     var submitBtn = form.querySelector('button[type="submit"]');
 
-    var cfg = (window.SARAL_POOJA_CONFIG && window.SARAL_POOJA_CONFIG.emailjs) || {};
+    var cfg = (window.RITUAL_MITRA_CONFIG && window.RITUAL_MITRA_CONFIG.emailjs) || {};
     var looksReal = function (v) {
       return !!v && v.indexOf('your_') !== 0;
     };
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
           form.reset();
         },
         function (err) {
-          console.error('[Saral Pooja] EmailJS send failed:', err);
+          console.error('[Ritual Mitra] EmailJS send failed:', err);
           if (errorBox) {
             errorBox.textContent = 'Something went wrong sending your message. Please try again, or email us directly at saralpooja.info@gmail.com.';
             show(errorBox);

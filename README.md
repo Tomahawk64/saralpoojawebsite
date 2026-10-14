@@ -1,6 +1,6 @@
-# Saral Pooja — Website
+# Ritual Mitra — Website
 
-A static, multi-page marketing website for Saral Pooja, built from the provided
+A static, multi-page marketing website for Ritual Mitra, built from the provided
 content brief and the Privacy Policy, Terms & Conditions, Refund & Cancellation
 Policy, and Account Deletion Policy.
 
@@ -78,14 +78,14 @@ uses a relative path, so the whole site works this way with zero setup.
 
 If you have Python installed:
 ```bash
-cd saral-pooja
+cd ritual-mitra
 python3 -m http.server 8000
 ```
 Then open **http://localhost:8000** in your browser.
 
 If you have Node.js installed:
 ```bash
-cd saral-pooja
+cd ritual-mitra
 npx serve .
 ```
 It will print a local URL (usually **http://localhost:3000**) to open.
